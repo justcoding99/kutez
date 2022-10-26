@@ -35,7 +35,7 @@
     <section  class="container">                 
                 <div class="col-sm-3">
                     <div class="input-group date" id="datepicker">
-                        <input type="text" class="form-control" value="Order Date">                        
+                        <input type="text" class="form-control" value="Order Date" id="dateinput">                        
                         <span class="input-group-append">
                             <span class="input-group-text bg-white">
                                 <i class="fa fa-calendar"></i>
@@ -56,8 +56,8 @@
        
     <select class="col-sm-3" name="membership" id="membership"  >
     <option value="" selected disabled hidden>Fabric Type</option>
-    <option value="bronze">Bronze</option>
-    <option value="Gold">Gold</option>
+    <option value="Cotton">Cotton</option>
+    <option value="Linen">Linen</option>
     </select>
 
 
@@ -65,15 +65,42 @@
 
     <br><br>
 
-    <button type="button" class="btn">Calculate</button>
+    <button type="button" class="btn" id="submit">Calculate</button>
     <p class="text-left thetime">Your Estimated Shipping Time Is</p> 
+    <p id="shipping"> </p>
    
     
   </div>
   <div class="col-sm-4 rightside"></div>
 </div>
 
-  
+  <script>
+    $( "#submit" ).click(function() {
+        let memtype = $("#membership").val();
+        let quantity = $("#quantity").val();
+        
+        let days = 1;
+        if (quantity < 50 && memtype=="Cotton") {
+            days = 3;
+        }else if(quantity >= 50 && memtype=="Cotton"){
+            days = 4;
+        }
+        else if(quantity < 50 && memtype=="Linen"){
+            days = 5;
+        }else if(quantity >= 50 && memtype=="Linen"){
+            days = 6;
+        }
+
+        var jsDate = $('#datepicker').datepicker('getDate');
+        let result;
+        if (jsDate !== null) { 
+            jsDate instanceof Date;
+            result = new Date(jsDate.getTime()+(days*24*60*60*1000));
+        }
+        $("#shipping").html(result.getFullYear() + "/" + result.getMonth() + "/" + result.getDate());
+
+});
+  </script>
 
   
 
