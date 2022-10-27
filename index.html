@@ -97,7 +97,7 @@
             jsDate instanceof Date;
             result = new Date(jsDate.getTime()+(days*24*60*60*1000));
         }
-        $("#shipping").html(result.getFullYear() + "/" + result.getMonth() + "/" + result.getDate());
+        $("#shipping").html(result.getFullYear() + "/" + (result.getMonth()+1) + "/" + result.getDate());
 
 });
   </script>
